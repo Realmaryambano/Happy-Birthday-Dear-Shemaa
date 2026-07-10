@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Distance Between Us 🌍</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .globe-wrap{
+    width: min(280px, 60vw); aspect-ratio:1; margin: 1rem auto 0;
+    perspective: 900px;
+  }
+  .globe{
+    width:100%; height:100%; border-radius:50%; position:relative;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(255,255,255,.55), transparent 40%),
+      radial-gradient(circle at 65% 70%, var(--accent-2), transparent 55%),
+      radial-gradient(circle at 50% 50%, #5fc7a3 0%, #3fa78a 35%, #2f8f79 55%, var(--accent-deep) 100%);
+    box-shadow: inset -18px -18px 40px rgba(0,0,0,.35), 0 20px 40px var(--shadow);
+    animation: spin 14s linear infinite;
+    cursor: grab;
+  }
+  .globe:active{ cursor: grabbing; animation-play-state: paused; }
+  .globe::before{ /* longitude lines */
+    content:''; position:absolute; inset:0; border-radius:50%;
+    background: repeating-linear-gradient(90deg, transparent 0 8.3%, rgba(255,255,255,.18) 8.3% 8.6%);
+    mix-blend-mode: overlay;
+  }
+  .globe::after{ /* latitude lines */
+    content:''; position:absolute; inset:0; border-radius:50%;
+    background: repeating-linear-gradient(0deg, transparent 0 12.4%, rgba(255,255,255,.14) 12.4% 12.7%);
+  }
+  @keyframes spin{ from{ transform: rotateY(0deg); } to{ transform: rotateY(360deg); } }
+
+  .glow{
+    position:relative;
+  }
+  .glow .ring{
+    position:absolute; inset:-14px; border-radius:50%;
+    border: 2px dashed var(--accent-2);
+    animation: spin 22s linear infinite reverse;
+    opacity:.6;
+  }
+
+  .distance-card{
+    margin-top: 2.2rem; width: min(560px,94vw);
+    background: var(--paper); border-radius:18px;
+    box-shadow: 0 16px 34px var(--shadow);
+    padding: 1.8rem clamp(1rem,4vw,2.4rem);
+    position:relative;
+  }
+  .distance-card .tape{ top:-14px; left: calc(50% - 45px); transform: rotate(3deg); }
+
+  .route{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:.6rem; margin-bottom:1.2rem;
+  }
+  .city{ text-align:center; flex:0 0 auto; }
+  .city .dot{ width:14px; height:14px; border-radius:50%; background: var(--accent); margin: 0 auto .4rem; box-shadow:0 0 0 5px var(--bg-soft); }
+  .city .name{ font-family: var(--font-display); font-weight:700; color:var(--accent-deep); }
+  .city .country{ font-size:.8rem; color: var(--ink-soft); }
+
+  .path{
+    flex:1; position:relative; height:2px;
+    background: repeating-linear-gradient(90deg, var(--accent-2) 0 8px, transparent 8px 16px);
+    margin: 0 .4rem;
+  }
+  .plane{
+    position:absolute; top:50%; left:0; transform: translate(-50%,-50%);
+    font-size:1.3rem;
+    animation: fly 3.2s ease-in-out infinite;
+  }
+  @keyframes fly{
+    0%{ left:0%; }
+    50%{ left:100%; }
+    50.01%{ left:100%; }
+    100%{ left:0%; }
+  }
+
+  .km-number{
+    text-align:center; font-family: var(--font-script); color: var(--accent-deep);
+    font-size: clamp(2.4rem,7vw,3.4rem); margin: .3rem 0 0;
+  }
+  .km-label{ text-align:center; color: var(--ink-soft); font-family: var(--font-display); font-style:italic; margin-bottom:.2rem; }
+
+  .quote{
+    margin-top: 1.6rem; text-align:center;
+    font-family: var(--font-script); font-size:1.5rem; color: var(--accent);
+    max-width: 480px; margin-left:auto; margin-right:auto;
+  }
+</style>
+</head>
+<body>
+<div class="floaty-hearts"></div>
+
+<nav class="navbar">
+  <div class="brand">🎀 Shemaa's Birthday</div>
+  <button class="nav-burger" aria-label="menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="letter.html">Letter 💌</a></li>
+    <li><a href="distance.html">Distance 🌍</a></li>
+    <li><a href="story.html">Our Story 📖</a></li>
+    <li><a href="gifts.html">Gifts 🎁</a></li>
+    <li><a href="forever.html">Forever ✨</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" aria-label="toggle theme">☀️</button>
+  </div>
+</nav>
+
+<main>
+  <h1 class="page-title fade-up">Distance 🌍</h1>
+  <p class="page-sub fade-up">Drag the earth, spin it, do whatever you want with it. It still can't stretch the space between Karachi and Bihar. But my heart does that part anyway.</p>
+
+  <div class="glow">
+    <div class="ring"></div>
+    <div class="globe-wrap"><div class="globe" id="globe"></div></div>
+  </div>
+
+  <div class="distance-card fade-up">
+    <div class="tape"></div>
+    <div class="route">
+      <div class="city">
+        <div class="dot"></div>
+        <div class="name">Karachi</div>
+        <div class="country">Pakistan</div>
+      </div>
+      <div class="path"><span class="plane">✈️💗</span></div>
+      <div class="city">
+        <div class="dot"></div>
+        <div class="name">Bihar</div>
+        <div class="country">India</div>
+      </div>
+    </div>
+
+    <div class="km-number" id="kmNumber">0 km</div>
+    <div class="km-label">≈ 1,134 miles, as the crow flies</div>
+
+    <p class="quote">Thousand miles apart, but still closest to my heart, my sweetheart. 💗</p>
+  </div>
+</main>
+
+<footer>karachi 🇵🇰 to bihar 🇮🇳 — still no distance at all</footer>
+
+<script src="main.js"></script>
+<script>
+  // drag to spin the globe manually
+  const globe = document.getElementById('globe');
+  let dragging = false, startX = 0, rotation = 0;
+  globe.addEventListener('pointerdown', e => { dragging = true; startX = e.clientX; globe.style.animation='none'; });
+  window.addEventListener('pointerup', () => dragging = false);
+  window.addEventListener('pointermove', e => {
+    if(!dragging) return;
+    const dx = e.clientX - startX;
+    rotation += dx * 0.5;
+    globe.style.transform = `rotateY(${rotation}deg)`;
+    startX = e.clientX;
+  });
+
+  // count up the distance
+  const el = document.getElementById('kmNumber');
+  const target = 1825;
+  let cur = 0;
+  const step = Math.ceil(target / 60);
+  const timer = setInterval(() => {
+    cur += step;
+    if (cur >= target){ cur = target; clearInterval(timer); }
+    el.textContent = cur.toLocaleString() + ' km';
+  }, 20);
+</script>
+</body>
+</html>
