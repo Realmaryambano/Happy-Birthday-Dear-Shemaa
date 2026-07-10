@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter for Shemaa 💌</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .stage{ width:min(420px, 92vw); margin-top:1rem; }
+
+  .envelope-wrap{
+    position:relative; width:100%; aspect-ratio: 4/2.7; cursor:pointer;
+    perspective: 1200px;
+  }
+  .envelope-body{
+    position:absolute; inset:0;
+    background: var(--accent-2);
+    border-radius: 8px;
+    box-shadow: 0 16px 30px var(--shadow);
+    overflow:hidden;
+  }
+  .envelope-body::before, .envelope-body::after{
+    content:''; position:absolute; top:0; width:0; height:0;
+    border-top: 90px solid var(--accent);
+  }
+  .envelope-body::before{ left:0; border-left: 110px solid transparent; }
+  .envelope-body::after{ right:0; border-right: 110px solid transparent; }
+
+  .flap{
+    position:absolute; top:0; left:0; right:0; height:0; width:0; margin:auto;
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-top: 90px solid var(--accent-deep);
+    transform-origin: top center;
+    transition: transform .8s cubic-bezier(.7,-0.2,.3,1.3);
+    z-index:3;
+  }
+  .envelope-wrap.open .flap{ transform: rotateX(180deg); }
+
+  .seal{
+    position:absolute; left:50%; top:52px; transform: translate(-50%,-50%);
+    width:46px; height:46px; border-radius:50%;
+    background: var(--gold);
+    display:grid; place-items:center; font-size:1.3rem;
+    box-shadow: 0 4px 10px var(--shadow);
+    z-index:4;
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  .envelope-wrap.open .seal{ opacity:0; transform: translate(-50%,-50%) scale(.5); }
+
+  .letter-paper{
+    position:absolute; left:6%; right:6%; bottom:6%; top:20%;
+    background: var(--paper);
+    border-radius: 6px;
+    box-shadow: 0 -4px 10px rgba(0,0,0,.08);
+    z-index:2;
+    transform: translateY(6%);
+    transition: transform .8s ease .1s;
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-script); color: var(--ink-soft); font-size:1.1rem;
+    text-align:center; padding:1rem;
+  }
+  .envelope-wrap.open .letter-paper{ transform: translateY(-92%); }
+
+  .hint{
+    text-align:center; margin-top:1.2rem; font-family: var(--font-display); font-style:italic; color: var(--ink-soft);
+  }
+
+  .full-letter{
+    max-width: 640px; width:100%;
+    background: var(--paper);
+    border-radius: 16px;
+    box-shadow: 0 18px 40px var(--shadow);
+    padding: 2rem clamp(1.2rem,4vw,2.6rem);
+    margin-top: 2.4rem;
+    opacity:0; transform: translateY(30px);
+    transition: opacity .8s ease, transform .8s ease;
+    position:relative;
+  }
+  .full-letter.show{ opacity:1; transform:none; }
+  .full-letter .tape{ top:-14px; left:calc(50% - 45px); transform: rotate(-4deg); }
+  .full-letter p{
+    font-family: var(--font-script);
+    font-size: 1.35rem;
+    line-height:1.65;
+    color: var(--ink);
+    margin: 0 0 1.1rem;
+  }
+  .full-letter .to{
+    font-family: var(--font-display); font-weight:700; color: var(--accent-deep);
+    text-align:center; font-size:1.1rem; margin-bottom:1.4rem; letter-spacing:.04em;
+  }
+  .full-letter .sign{
+    text-align:right; font-family: var(--font-script); font-size:1.6rem; color: var(--accent-deep); margin-top:1.6rem;
+  }
+</style>
+</head>
+<body>
+<div class="floaty-hearts"></div>
+
+<nav class="navbar">
+  <div class="brand">🎀 Shemaa's Birthday</div>
+  <button class="nav-burger" aria-label="menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="letter.html">Letter 💌</a></li>
+    <li><a href="distance.html">Distance 🌍</a></li>
+    <li><a href="story.html">Our Story 📖</a></li>
+    <li><a href="gifts.html">Gifts 🎁</a></li>
+    <li><a href="forever.html">Forever ✨</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" aria-label="toggle theme">☀️</button>
+  </div>
+</nav>
+
+<main>
+  <h1 class="page-title fade-up">A Letter, Just for You 💌</h1>
+  <p class="page-sub fade-up">Tap the envelope, sweetheart.</p>
+
+  <div class="stage">
+    <div class="envelope-wrap" id="envelope">
+      <div class="letter-paper">✨</div>
+      <div class="envelope-body"></div>
+      <div class="flap"></div>
+      <div class="seal">💗</div>
+    </div>
+    <p class="hint" id="hint">tap to open →</p>
+  </div>
+
+  <article class="full-letter" id="fullLetter">
+    <div class="tape"></div>
+    <p class="to">To my pyari Shemaa Sarwar</p>
+
+    <p>Itna cringe feel horaha hehe... but whats love without feeling cringe. Okay so pyari shemaa... my bachpan ka pyaarrr... my bestest friend hahaha... I miss you so much God... kashhh hum dubara milein inshallah inshallah inshallahhhh... one of my biggest dream sweetheart...</p>
+
+    <p>I miss you a lottt.. and kash hum dubara Saudia mai hi mileinnn... would love to see you and meet you girlll... or haan, kesi chal rahi hai life? I adore you a lot matlabbb LOTTT WALA LOTTTTTTTT...</p>
+
+    <p>Itna acha lagta hai jab tumhari stories dekhti aur tumhe khush dekhti, Alhamdulillah mashallah mashallah tabarakallahhhh Allahuma barik... so my childhood friend, I am so sorry I couldn't give you anything on your birthday... this is just a chota sa gift for my pyari si friend.</p>
+
+    <p>So happy birthday dear lawyer ji... jaldi se waqeel banjayein or bohat zyada kamyab ho, inshallah, apppp. Love you so much Shemaa Sarwar.</p>
+
+    <p>Seeing you laugh and make good memories on your stories makes me feel so good. Humesha hasti raho... love seeing you happy... kabhi bhi udaas na hona, kabhi bhi. Humesha keke hehe karti raho, sweetheartttt.</p>
+
+    <p>LOVE YOU SO MUCH DEAR SHEMAA SARWAR. 💗</p>
+
+    <p class="sign">— Maryam Bano</p>
+  </article>
+</main>
+
+<footer>tap the seal, unwrap the feeling</footer>
+
+<script src="main.js"></script>
+<script>
+  const envelope = document.getElementById('envelope');
+  const hint = document.getElementById('hint');
+  const fullLetter = document.getElementById('fullLetter');
+  let opened = false;
+  envelope.addEventListener('click', () => {
+    if (opened) return;
+    opened = true;
+    envelope.classList.add('open');
+    hint.textContent = 'hehe... 🥹';
+    setTimeout(() => {
+      fullLetter.classList.add('show');
+      fullLetter.scrollIntoView({ behavior:'smooth', block:'center' });
+    }, 700);
+  });
+</script>
+</body>
+</html>
