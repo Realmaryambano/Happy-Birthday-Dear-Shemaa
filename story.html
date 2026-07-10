@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story 📖</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .timeline{
+    position:relative; width:min(880px,96vw); margin-top:1rem;
+    padding: 1rem 0 2rem;
+  }
+  .timeline::before{
+    content:''; position:absolute; left:50%; top:0; bottom:0; width:2px;
+    background: repeating-linear-gradient(0deg, var(--stitch) 0 10px, transparent 10px 18px);
+    transform: translateX(-50%);
+  }
+  @media (max-width:760px){
+    .timeline::before{ left: 22px; }
+  }
+
+  .entry{
+    position:relative; width:100%; margin: 0 0 2.6rem;
+    display:flex;
+    opacity:0; transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .entry.in{ opacity:1; transform:none; }
+  .entry:nth-child(odd){ justify-content:flex-start; }
+  .entry:nth-child(even){ justify-content:flex-end; }
+
+  .card{
+    width: 46%;
+    background: var(--paper);
+    border-radius:16px;
+    box-shadow: 0 12px 26px var(--shadow);
+    padding: 1.2rem 1.3rem;
+    position:relative;
+  }
+  .card .year{
+    display:inline-block; font-family: var(--font-display); font-weight:700;
+    color:#fff; background: var(--accent); padding:.15rem .7rem; border-radius:999px;
+    font-size:.75rem; margin-bottom:.5rem;
+  }
+  .card p{ margin:.2rem 0 0; line-height:1.55; font-family: var(--font-body); color: var(--ink); }
+
+  .dot{
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    width:16px; height:16px; border-radius:50%;
+    background: var(--gold); box-shadow: 0 0 0 6px var(--bg-soft);
+  }
+
+  @media (max-width:760px){
+    .entry, .entry:nth-child(even){ justify-content:flex-start; padding-left: 46px; }
+    .card{ width: 100%; }
+    .dot{ left:22px; }
+  }
+
+  .warning{
+    margin: 1rem auto 0; width: min(700px,94vw);
+    background: linear-gradient(160deg, var(--accent-deep), var(--accent));
+    color:#fff; border-radius: 20px;
+    padding: 2rem clamp(1.2rem,4vw,2.4rem);
+    text-align:center;
+    box-shadow: 0 20px 40px var(--shadow);
+    opacity:0; transform: translateY(30px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .warning.in{ opacity:1; transform:none; }
+  .warning h3{ font-family: var(--font-script); font-size:2rem; margin:0 0 .8rem; }
+  .warning p{ font-family: var(--font-display); font-weight:600; line-height:1.6; font-size:1rem; letter-spacing:.01em; }
+</style>
+</head>
+<body>
+<div class="floaty-hearts"></div>
+
+<nav class="navbar">
+  <div class="brand">🎀 Shemaa's Birthday</div>
+  <button class="nav-burger" aria-label="menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="letter.html">Letter 💌</a></li>
+    <li><a href="distance.html">Distance 🌍</a></li>
+    <li><a href="story.html">Our Story 📖</a></li>
+    <li><a href="gifts.html">Gifts 🎁</a></li>
+    <li><a href="forever.html">Forever ✨</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" aria-label="toggle theme">☀️</button>
+  </div>
+</nav>
+
+<main>
+  <h1 class="page-title fade-up">Our Story 📖</h1>
+  <p class="page-sub fade-up">A decade, told in scraps of memory. Scroll slow.</p>
+
+  <div class="timeline">
+    <div class="entry"><div class="dot"></div>
+      <div class="card">
+        <span class="year">10+ years ago</span>
+        <p>I met her over ten years ago. My first thought? She was rude. And that was my biggest misconception about her GOD. I was a bully back then, and I loved nothing more than disturbing her on purpose.</p>
+      </div>
+    </div>
+
+    <div class="entry"><div class="dot"></div>
+      <div class="card">
+        <span class="year">soon after</span>
+        <p>Time passed, and somewhere along the way, disturbing her turned into loving being around her. Funny how that happens.</p>
+      </div>
+    </div>
+
+    <div class="entry"><div class="dot"></div>
+      <div class="card">
+        <span class="year">the jokes era</span>
+        <p>I loved making jokes with her. Oh my god, I'm still smiling and blushing right now, like she's my husband or boyfriend. Yeah, she wasn't less than any boyfriend to me.</p>
+      </div>
+    </div>
+
+    <div class="entry"><div class="dot"></div>
+      <div class="card">
+        <span class="year">under 13</span>
+        <p>We were kids, both under thirteen. We didn't know what love even meant. But we made sure to build memories that weigh more than today's so-called love.</p>
+      </div>
+    </div>
+
+    <div class="entry"><div class="dot"></div>
+      <div class="card">
+        <span class="year">school days</span>
+        <p>Oh my god, our teachers were jealous of our friendship. LITERALLY jealous. They made her sit away from me, like I was some kind of trouble. I'm not gonna lie though — hehe — I probably was.</p>
+      </div>
+    </div>
+
+    <div class="entry"><div class="dot"></div>
+      <div class="card">
+        <span class="year">family knew her name</span>
+        <p>Even my own family knew her. That's how important this human was to me. Even today, till date, my mom texts her</p>
+      </div>
+    </div>
+
+    <div class="entry"><div class="dot"></div>
+      <div class="card">
+        <span class="year">the long calls</span>
+        <p>I loved talking to her on calls before I even knew what a "long call" was. Before the trend of screenshotting call durations existed. Before trendy Pinterest-style photos were even a thing. It was just us, being kids, being close. We don't even have pictures together except 8 or 10.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning">
+    <h3>a fair warning to the world 🔪💅</h3>
+    <p>IF ANYONE EVER HURTS HER, OR EVEN BRINGS TEARS TO HER EYES — I won't do anything but curse you so badly that you may never find peace. Hahaha, seriously. Never get a good night's sleep, and may mosquitoes always bite you whenever you try to. May your pillow never give you rest. So be careful before hurting her, okayyyy? 😌</p>
+  </div>
+</main>
+
+<footer>a decade of us, and counting</footer>
+
+<script src="main.js"></script>
+<script>
+  const items = document.querySelectorAll('.entry, .warning');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: .2 });
+  items.forEach(i => io.observe(i));
+</script>
+</body>
+</html>
