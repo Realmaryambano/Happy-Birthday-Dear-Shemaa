@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gifts for Shemaa 🎁</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .banner{
+    font-family: var(--font-script);
+    font-size: clamp(1.8rem,5.5vw,3rem);
+    color: var(--accent-deep); text-align:center; margin: .2rem 0 1.6rem;
+  }
+
+  .box-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+    gap: 1.4rem; width: min(700px,94vw); margin-bottom: 2rem;
+  }
+  .giftbox{
+    aspect-ratio:1; border-radius:14px; cursor:pointer; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.4rem; user-select:none;
+    box-shadow: 0 10px 22px var(--shadow);
+    transition: transform .25s ease;
+  }
+  .giftbox:hover{ transform: translateY(-6px) rotate(-2deg); }
+  .giftbox:nth-child(6n+1){ background: var(--accent); }
+  .giftbox:nth-child(6n+2){ background: var(--accent-2); }
+  .giftbox:nth-child(6n+3){ background: var(--gold); }
+  .giftbox:nth-child(6n+4){ background: var(--accent-deep); }
+  .giftbox:nth-child(6n+5){ background: var(--accent); }
+  .giftbox:nth-child(6n+6){ background: var(--accent-2); }
+  .giftbox::before, .giftbox::after{ content:''; position:absolute; background: rgba(255,255,255,.65); }
+  .giftbox::before{ left:0; right:0; top:42%; height:14%; }
+  .giftbox::after{ top:0; bottom:0; left:42%; width:14%; }
+  .giftbox.opened{ animation: pop .4s ease; }
+  @keyframes pop{ 0%{transform:scale(1);} 50%{transform:scale(1.15);} 100%{transform:scale(1);} }
+
+  .reveal-card{
+    max-width: 480px; width:92%; margin: 0 auto 2.4rem;
+    background: var(--paper); border-radius:18px; padding: 1.4rem 1.6rem;
+    box-shadow: 0 16px 34px var(--shadow);
+    text-align:center; font-family: var(--font-script); font-size:1.4rem; color: var(--accent-deep);
+    opacity:0; transform: scale(.9); transition: opacity .4s ease, transform .4s ease;
+    position:relative;
+  }
+  .reveal-card.show{ opacity:1; transform:none; }
+  .reveal-card .tape{ top:-14px; left: calc(50% - 45px); }
+
+  .balloon-field{
+    position:relative; width:min(760px,96vw); height: 420px;
+    background: var(--bg-soft); border-radius: 22px; overflow:hidden;
+    box-shadow: inset 0 0 0 2px var(--stitch);
+  }
+  .balloon-field .caption{
+    position:absolute; top:12px; left:0; right:0; text-align:center;
+    font-family: var(--font-display); font-style:italic; color: var(--ink-soft); font-size:.9rem; z-index:5;
+  }
+  .rballoon{
+    position:absolute; bottom:-80px; width:52px; height:64px;
+    border-radius:50% 50% 50% 50% / 55% 55% 45% 45%;
+    cursor:pointer;
+    animation: rise linear forwards;
+  }
+  .rballoon::after{
+    content:''; position:absolute; left:50%; top:100%; width:2px; height:36px;
+    background: rgba(0,0,0,.2); transform: translateX(-50%);
+  }
+  @keyframes rise{
+    from{ transform: translateY(0) translateX(0); }
+    to{ transform: translateY(-480px) translateX(var(--sway,20px)); }
+  }
+</style>
+</head>
+<body>
+<div class="floaty-hearts"></div>
+
+<nav class="navbar">
+  <div class="brand">🎀 Shemaa's Birthday</div>
+  <button class="nav-burger" aria-label="menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="letter.html">Letter 💌</a></li>
+    <li><a href="distance.html">Distance 🌍</a></li>
+    <li><a href="story.html">Our Story 📖</a></li>
+    <li><a href="gifts.html">Gifts 🎁</a></li>
+    <li><a href="forever.html">Forever ✨</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" aria-label="toggle theme">☀️</button>
+  </div>
+</nav>
+
+<main>
+  <h1 class="page-title fade-up">Gifts 🎁</h1>
+  <p class="banner fade-up">Happy Birthday to you, Shemaa Sarwar 🎉</p>
+  <p class="page-sub" style="margin-top:-1rem;">Pick a box, sweetheart. Every single one has something for you.</p>
+
+  <div class="box-grid" id="boxGrid"></div>
+  <div class="reveal-card" id="revealCard"><div class="tape"></div><span id="revealText"></span></div>
+
+  <p class="page-sub">Now pop some balloons 🎈</p>
+  <div class="balloon-field" id="balloonField">
+    <div class="caption">tap a balloon to pop it 🌸</div>
+  </div>
+</main>
+
+<footer>every box, every balloon — full of love for you</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js"></script>
+<script src="main.js"></script>
+<script>
+  // ---- gift boxes ----
+  const gifts = [
+    "One free hug, redeemable anytime we finally meet 🤗",
+    "A lifetime supply of cringe voice notes hehe 🎙️",
+    "A promise: I'll always be your hype girl 📣💕",
+    "All your stories, watched, liked, and adored 🥹",
+    "A future trip to Saudia together, inshallah 🤲✈️",
+    "Endless duas for the best lawyer this world will see ⚖️✨",
+    "Every childhood memory, wrapped and kept safe 📦💗",
+    "A permanent seat in my heart, no eviction ever 🏡❤️",
+    "The loudest 'I'm proud of you' you'll ever hear 📢",
+    "My forever attendance at your success era 🎓🎉",
+    "Unlimited keke hehe privileges for life 😂",
+    "A curse on anyone who ever makes you sad 🔮"
+  ];
+  const boxGrid = document.getElementById('boxGrid');
+  const revealCard = document.getElementById('revealCard');
+  const revealText = document.getElementById('revealText');
+  const used = new Set();
+
+  for (let i=0; i<9; i++){
+    const box = document.createElement('div');
+    box.className = 'giftbox';
+    box.textContent = '🎁';
+    boxGrid.appendChild(box);
+    box.addEventListener('click', () => {
+      box.classList.add('opened');
+      let idx = Math.floor(Math.random()*gifts.length);
+      if (used.size < gifts.length){
+        while (used.has(idx)) idx = Math.floor(Math.random()*gifts.length);
+      }
+      used.add(idx);
+      revealText.textContent = gifts[idx];
+      revealCard.classList.remove('show');
+      void revealCard.offsetWidth; // restart animation
+      revealCard.classList.add('show');
+      revealCard.scrollIntoView({behavior:'smooth', block:'center'});
+      if (window.confetti){
+        confetti({ particleCount: 70, spread: 65, origin: { y: 0.5 } });
+      }
+    });
+  }
+
+  // ---- balloons ----
+  const field = document.getElementById('balloonField');
+  const colors = ['#e8578c','#f7a6c4','#d9a441','#c93f74','#ffb3cf'];
+  const flowers = ['🌸','🌷','🌼','💮','🌺'];
+
+  function spawnBalloon(){
+    const b = document.createElement('div');
+    b.className = 'rballoon';
+    b.style.left = (5 + Math.random()*85) + '%';
+    b.style.background = colors[Math.floor(Math.random()*colors.length)];
+    b.style.setProperty('--sway', (Math.random()*60-30) + 'px');
+    b.style.animationDuration = (7 + Math.random()*4) + 's';
+    field.appendChild(b);
+    b.addEventListener('click', () => popBalloon(b));
+    b.addEventListener('animationend', () => b.remove());
+  }
+
+  function popBalloon(b){
+    const rect = b.getBoundingClientRect();
+    const fieldRect = field.getBoundingClientRect();
+    const x = rect.left - fieldRect.left + rect.width/2;
+    const y = rect.top - fieldRect.top + rect.height/2;
+    b.remove();
+    for (let i=0;i<6;i++){
+      const f = document.createElement('span');
+      f.textContent = flowers[Math.floor(Math.random()*flowers.length)];
+      f.style.position='absolute';
+      f.style.left = x+'px'; f.style.top = y+'px';
+      f.style.fontSize = '1.4rem';
+      f.style.pointerEvents='none';
+      f.style.transition = 'transform 1s ease, opacity 1s ease';
+      field.appendChild(f);
+      const ang = (Math.PI*2*i)/6;
+      requestAnimationFrame(() => {
+        f.style.transform = `translate(${Math.cos(ang)*70}px, ${Math.sin(ang)*70 - 30}px) rotate(${Math.random()*360}deg)`;
+        f.style.opacity = '0';
+      });
+      setTimeout(() => f.remove(), 1050);
+    }
+    if (window.confetti){
+      confetti({ particleCount: 40, spread: 50, origin: { x: (x+fieldRect.left)/window.innerWidth, y: (y+fieldRect.top)/window.innerHeight } });
+    }
+  }
+
+  setInterval(spawnBalloon, 900);
+  for(let i=0;i<3;i++) setTimeout(spawnBalloon, i*300);
+</script>
+</body>
+</html>
