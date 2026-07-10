@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2014 — Forever 💗</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body{ overflow-x:hidden; }
+  #fw-canvas{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  .forever-wrap{
+    position:relative; z-index:2; text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+    padding-top: 1rem;
+  }
+
+  .stamp{
+    font-family: var(--font-display); font-weight:700; letter-spacing:.06em;
+    border: 3px double var(--accent-deep); color: var(--accent-deep);
+    padding: .4rem 1rem; border-radius: 10px; transform: rotate(-4deg);
+    font-size: .82rem; text-transform:uppercase; margin-bottom: 1.2rem;
+    background: color-mix(in srgb, var(--paper) 70%, transparent);
+  }
+
+  .years{
+    display:flex; align-items:center; gap: clamp(.6rem,3vw,1.6rem);
+    font-family: var(--font-script);
+    font-size: clamp(2.6rem, 10vw, 5.5rem);
+    color: var(--accent-deep);
+    line-height:1;
+  }
+  .years .arrow{ color: var(--gold); font-size:.6em; }
+
+  .tagline{
+    font-family: var(--font-display); font-style:italic; color: var(--ink-soft);
+    max-width: 560px; margin: 1rem auto 0; font-size:1.05rem;
+  }
+
+  .closing-card{
+    margin-top: 2.4rem; max-width: 640px; width: 92%;
+    background: var(--paper); border-radius: 22px; padding: 2rem clamp(1.2rem,4vw,2.6rem);
+    box-shadow: 0 20px 44px var(--shadow); position:relative;
+  }
+  .closing-card .tape{ top:-14px; left: calc(50% - 45px); transform: rotate(-3deg); }
+  .closing-card p{
+    font-family: var(--font-script); font-size: 1.5rem; color: var(--ink); line-height:1.55; margin:.4rem 0;
+  }
+
+  .from-badge{
+    margin-top: 1.6rem; display:inline-flex; align-items:center; gap:.5rem;
+    font-family: var(--font-display); font-weight:700; color:#fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    padding: .7rem 1.4rem; border-radius: 999px; box-shadow: 0 10px 22px var(--shadow);
+    font-size: 1rem; letter-spacing:.02em;
+  }
+
+  .actions{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top: 2rem; }
+</style>
+</head>
+<body>
+<canvas id="fw-canvas"></canvas>
+<div class="floaty-hearts" style="z-index:1;"></div>
+
+<nav class="navbar" style="position:relative; z-index:3;">
+  <div class="brand">🎀 Shemaa's Birthday</div>
+  <button class="nav-burger" aria-label="menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="letter.html">Letter 💌</a></li>
+    <li><a href="distance.html">Distance 🌍</a></li>
+    <li><a href="story.html">Our Story 📖</a></li>
+    <li><a href="gifts.html">Gifts 🎁</a></li>
+    <li><a href="forever.html">Forever ✨</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" aria-label="toggle theme">☀️</button>
+  </div>
+</nav>
+
+<main class="forever-wrap">
+  <span class="stamp">est. childhood friendship</span>
+  <div class="years fade-up">
+    <span>2014</span><span class="arrow">✦</span><span>Forever</span>
+  </div>
+  <p class="tagline fade-up">Together since we were kids who didn't know what long-distance even meant. Still together, just with worse WiFi between us.</p>
+
+  <div class="closing-card fade-up">
+    <div class="tape"></div>
+    <p>Happy Birthday, Shemaa Sarwar. 🎂</p>
+    <p>My bachpan ka pyaar, my loudest cheerleader, my favourite person to be cringe with. Honestly, I never became cringe again after we aparted.. Never ever made any such friend with whom I could laugh loud until my stomach hurt. </p>
+    <p>Here's to every memory already made, and every single one still waiting for us. Inshallah, Saudia, sooner than later. 🤲</p>
+    <div class="from-badge">💌 Love you from Pakistan 🇵🇰</div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" id="replayBtn">🎆 Replay the magic</button>
+    <a href="index.html" class="btn ghost">Back to the start ↺</a>
+  </div>
+</main>
+
+<footer>2014 — forever. no expiry on this one.</footer>
+
+<script src="main.js"></script>
+<script>
+  // lightweight canvas fireworks, no external lib needed
+  const canvas = document.getElementById('fw-canvas');
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+  resize(); addEventListener('resize', resize);
+
+  const palette = ['#e8578c','#f7a6c4','#d9a441','#c93f74','#ffffff'];
+  let particles = [];
+
+  function burst(x, y){
+    const count = 34;
+    for (let i=0;i<count;i++){
+      const angle = (Math.PI*2*i)/count;
+      const speed = 2 + Math.random()*3;
+      particles.push({
+        x, y,
+        vx: Math.cos(angle)*speed,
+        vy: Math.sin(angle)*speed,
+        life: 1,
+        color: palette[Math.floor(Math.random()*palette.length)]
+      });
+    }
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.045; p.life -= 0.014;
+      ctx.globalAlpha = Math.max(p.life,0);
+      ctx.fillStyle = p.color;
+      ctx.beginPath(); ctx.arc(p.x,p.y,2.6,0,Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    particles = particles.filter(p => p.life > 0);
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  function autoFireworks(n){
+    for(let i=0;i<n;i++){
+      setTimeout(() => burst(
+        canvas.width * (0.2 + Math.random()*0.6),
+        canvas.height * (0.2 + Math.random()*0.4)
+      ), i*380);
+    }
+  }
+  autoFireworks(6);
+  document.getElementById('replayBtn').addEventListener('click', () => autoFireworks(8));
+</script>
+</body>
+</html>
